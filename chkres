@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+use CGI;
+$cgi=new CGI;
+$ran = $cgi->param('c');
+chomp($ran);
+$dir = "/webservers/cgidocs/mkumar/temp/shikha/lact_meme$ran";
+$result = "/webservers/cgidocs/mkumar/temp/shikha/lact_meme$ran/index.html";
+print"Content-type: text/html\n\n";
+if(!(-e "$result"))
+{
+    print "<html>\n";
+    print "<HEAD>\n";
+    print "<TITLE> Status of your request for Beta lactamase fingerprint prediction </TITLE>\n";
+    print "<META NAME=\"description\" CONTENT=\"Beta lactamase prediction, UDSC, INDIA\">\n";
+    print "<meta http-equiv=\"refresh\" content=\"120;url=10.154.4.31/cgi-bin/lactfp/chkres?c=$ran\">\n";
+    print "</HEAD><body bgcolor=\"white\">\n";
+    print "<font size=3 color=blue><b>Your Job is in progress. <p>it may take some time to serve the query, so please wait ........</b></font>";
+    print "<br><font size=3 color=blue><b>Your Job Number is</font><font size=3 color=red><b> $ran</b></font>.<br>";
+    print "<font size=3 color=blue><b>This page will <blink><font size=3 color=red><b>refresh</b></font></blink> in 15 seconds.</b></font></p>";
+    print "</body></html>\n";
+}
+else
+{
+    open(FP1,"$result");
+    while($line = <FP1>)
+    {
+	print "$line\n";	
+    }	
+    close(FP1);
+}
